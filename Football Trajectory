@@ -1,0 +1,113 @@
+% n is name, x, y are scales of axis
+function m = picture2(n)
+% filename in single quotes and ends in .csv
+a = n;
+% convert picture to a 'truecolor RGB 3-D array/matrix
+b = imread(a);
+% gather info on the picture
+imfinfo(n)
+% display image
+
+ % RGB image : Red, Green, Blue
+z = image(b);
+grid on
+datacursormode on
+subplot(2,2,1)
+ % HSV image : Hue, Saturation, value components
+q = rgb2hsv(b);
+image(q);
+grid on
+datacursormode on
+subplot (2,2,2)
+% b = picture array
+% (height, width, which dimension 1 = R, 2 = G, 3 = B)
+ % height and width a:b gives table of pixel height a and width b
+ % to pick out single pixel a,b...
+
+ % get pixel height and width of picture via imfinfo
+
+i = 1;
+j = 1;
+k = 1;
+kk = 1;
+% h = height in pixels,
+% w = width in pixels
+% numfram = number of frames
+h = 240; % 96 for 1200 fps, ... 240 for 60 fps
+w = 320; % 336 for 1200 fps, ... 320 for 60 fps
+R1 = b(1:h,1:w,1);
+G1 = b(1:h,1:w,2);
+B1 = b(1:h,1:w,3);
+H1 = q(1:h,1:w,1);
+S1 = q(1:h,1:w,2);
+V1 = q(1:h,1:w,3);
+Y(k) = 0;
+X(k) = 0;
+YY(kk) = 0;
+XX(kk) = 0;
+while (j <= w);
+
+i = 1;
+
+while (i <= h);
+R(i,j) = b(i,j,1);
+G(i,j) = b(i,j,2);
+B(i,j) = b(i,j,3);
+H(i,j) = q(i,j,1);
+S(i,j) = q(i,j,2);
+V(i,j) = q(i,j,3);
+if ((R(i,j)/(B(i,j)) > 2) && (G(i,j)/(B(i,j)) > 1.5) && (G(i,j)/(R(i,j)) < 1.5)) ||
+((R(i,j) > 230) && (G(i,j) > 230) && (B(i,j) < 200))
+
+ A(i,j,1) = 255;
+
+ Y(k) = i;
+ X(k) = j;
+
+ k = k + 1;
+else
+
+ A(i,j,1) = 0;
+ end
+if (H(i,j) < 0.14)
+
+ AA(i,j,1) = 255;
+
+ YY(kk) = i;
+ XX(kk) = j;
+
+ kk = kk + 1;
+else
+
+ AA(i,j,1) = 0;
+end
+i = i + 1;
+end
+j = j + 1;
+end
+Y1 = median(Y)
+X1 = median(X)
+YY1 = median(YY)
+XX1 = median(XX)
+image(A)
+datacursormode on
+grid on
+subplot(2,2,3)
+image(AA)
+datacursormode on
+grid on
+subplot(2,2,4)
+%x and y are two-dimensional vectors; x is x axis scale [x0 xf] , y is y axis scale [y0
+yf], n is the name and location of the
+% file
+csvwrite('AA.csv', AA);
+csvwrite('A.csv', A);
+csvwrite('RGB.csv',b);
+csvwrite('HSV.csv', q);
+csvwrite('Rpict.csv', R1);
+csvwrite('Gpict.csv', G1);
+csvwrite('Bpict.csv', B1);
+csvwrite('Hpict.csv', H1);
+csvwrite('Spict.csv', S1);
+csvwrite('Vpict.csv', V1);
+end
