@@ -1,3 +1,12 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The total trajectory of a soccer ball post stationary kick was simulated using MATLAB.                                           %
+% The five forces on the ball are: gravity, drag, normal, friction (both rolling and sliding), and magnus.                          %
+% The coefficients for each force were determined using literature and experimental data.                                           %
+% A Runge-Kutta fourth order numerical approximation was used to evaluate the differential equation found from Newtons second law.  % 
+% Also, translational and rotational velocity shifts due to bounce were theoretically examined.                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 function
 footballtrajectory(e,u,pres,r,p,A,m,xi,yi,zi,vi,wup,wright,phi,psi,dt,filename)
 % save filename as .csv and put in single quotes ' '
